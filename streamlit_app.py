@@ -12,37 +12,37 @@ st.markdown("""
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Jua&display=swap');
     
-    /* 전체 배경 그라데이션 */
+    /* 전체 배경 - 흰색 바탕 */
     [data-testid="stAppViewContainer"] > .main {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        background: linear-gradient(135deg, #ffffff 0%, #f8f9ff 100%);
         background-attachment: fixed;
     }
     
     /* 메인 컨테이너 */
     .main > div {
-        background: rgba(255, 255, 255, 0.95);
+        background: rgba(255, 255, 255, 0.9);
         border-radius: 20px;
         margin: 20px;
         padding: 20px;
-        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.05);
         backdrop-filter: blur(10px);
-        border: 2px solid rgba(255, 255, 255, 0.2);
+        border: 2px solid rgba(102, 126, 234, 0.1);
     }
     
     /* 타이틀 스타일 */
     .main h1 {
         font-family: 'Jua', sans-serif;
-        color: #4a5568;
+        color: #2d3748;
         text-align: center;
         font-size: 2.5rem;
         margin-bottom: 10px;
-        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        text-shadow: 2px 2px 4px rgba(102, 126, 234, 0.2);
     }
     
     /* 캡션 스타일 */
     .main p {
         font-family: 'Jua', sans-serif;
-        color: #718096;
+        color: #4a5568;
         text-align: center;
         font-size: 1.1rem;
         margin-bottom: 30px;
@@ -50,12 +50,12 @@ st.markdown("""
     
     /* 채팅 메시지 스타일 */
     [data-testid="stChatMessage"] {
-        background: rgba(255, 255, 255, 0.8);
+        background: rgba(255, 255, 255, 0.9);
         border-radius: 15px;
         padding: 15px;
         margin: 10px 0;
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-        border: 1px solid rgba(255, 255, 255, 0.3);
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+        border: 1px solid rgba(102, 126, 234, 0.1);
     }
     
     /* 사용자 메시지 */
@@ -63,6 +63,7 @@ st.markdown("""
         background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
         color: white;
         margin-left: 20px;
+        border: 1px solid rgba(102, 126, 234, 0.3);
     }
     
     /* AI 메시지 */
@@ -70,6 +71,7 @@ st.markdown("""
         background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
         color: white;
         margin-right: 20px;
+        border: 1px solid rgba(245, 87, 108, 0.3);
     }
     
     /* 입력창 스타일 */
@@ -100,32 +102,50 @@ st.markdown("""
         z-index: -1;
     }
     
-    .star {
+    /* 법 관련 귀여운 아이콘들 */
+    .law-icon {
         position: fixed;
-        color: rgba(255, 255, 255, 0.6);
-        font-size: 20px;
-        animation: twinkle 2s infinite;
+        font-size: 30px;
+        animation: float 3s ease-in-out infinite;
+        opacity: 0.6;
+        color: #667eea;
     }
     
-    @keyframes twinkle {
-        0%, 100% { opacity: 0.3; }
-        50% { opacity: 1; }
+    @keyframes float {
+        0%, 100% { transform: translateY(0px); }
+        50% { transform: translateY(-10px); }
+    }
+    
+    .law-icon-small {
+        position: fixed;
+        font-size: 20px;
+        animation: bounce 2s ease-in-out infinite;
+        opacity: 0.4;
+        color: #764ba2;
+    }
+    
+    @keyframes bounce {
+        0%, 100% { transform: translateY(0px); }
+        50% { transform: translateY(-5px); }
     }
     
     /* 하단 푸터 */
     .footer {
-        position: fixed;
-        right: 15px;
-        bottom: 15px;
-        background: rgba(255, 255, 255, 0.9);
-        color: #4a5568;
-        font-size: 0.9em;
-        text-align: right;
-        padding: 8px 12px;
-        border-radius: 15px;
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-        font-family: 'Jua', sans-serif;
-        border: 1px solid rgba(102, 126, 234, 0.2);
+        position: fixed !important;
+        right: 15px !important;
+        bottom: 15px !important;
+        background: rgba(255, 255, 255, 0.95) !important;
+        color: #4a5568 !important;
+        font-size: 0.85em !important;
+        text-align: right !important;
+        padding: 10px 15px !important;
+        border-radius: 15px !important;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1) !important;
+        font-family: 'Jua', sans-serif !important;
+        border: 1px solid rgba(102, 126, 234, 0.3) !important;
+        z-index: 9999 !important;
+        max-width: 300px !important;
+        line-height: 1.3 !important;
     }
     
     /* 버튼 스타일 */
@@ -157,15 +177,25 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
-# 귀여운 배경 데코레이션
+# 귀여운 법 관련 배경 데코레이션
 st.markdown("""
 <div class="decoration">
-    <div class="star" style="top: 10%; left: 10%;">⭐</div>
-    <div class="star" style="top: 20%; left: 80%; animation-delay: 0.5s;">🌟</div>
-    <div class="star" style="top: 70%; left: 15%; animation-delay: 1s;">✨</div>
-    <div class="star" style="top: 80%; left: 85%; animation-delay: 1.5s;">💫</div>
-    <div class="star" style="top: 40%; left: 90%; animation-delay: 2s;">⭐</div>
-    <div class="star" style="top: 60%; left: 5%; animation-delay: 2.5s;">🌟</div>
+    <!-- 법 관련 큰 아이콘들 -->
+    <div class="law-icon" style="top: 10%; left: 10%;">⚖️</div>
+    <div class="law-icon" style="top: 20%; left: 85%; animation-delay: 1s;">🏛️</div>
+    <div class="law-icon" style="top: 70%; left: 15%; animation-delay: 2s;">📚</div>
+    <div class="law-icon" style="top: 80%; left: 90%; animation-delay: 3s;">⚖️</div>
+    <div class="law-icon" style="top: 50%; left: 5%; animation-delay: 4s;">🏛️</div>
+    
+    <!-- 법 관련 작은 아이콘들 -->
+    <div class="law-icon-small" style="top: 30%; left: 25%; animation-delay: 0.5s;">📖</div>
+    <div class="law-icon-small" style="top: 45%; left: 75%; animation-delay: 1.5s;">🎓</div>
+    <div class="law-icon-small" style="top: 60%; left: 30%; animation-delay: 2.5s;">📜</div>
+    <div class="law-icon-small" style="top: 25%; left: 60%; animation-delay: 3.5s;">🏛️</div>
+    <div class="law-icon-small" style="top: 85%; left: 40%; animation-delay: 4.5s;">⚖️</div>
+    <div class="law-icon-small" style="top: 15%; left: 40%; animation-delay: 5s;">📚</div>
+    <div class="law-icon-small" style="top: 65%; left: 70%; animation-delay: 5.5s;">🎯</div>
+    <div class="law-icon-small" style="top: 35%; left: 95%; animation-delay: 6s;">📖</div>
 </div>
 """, unsafe_allow_html=True)
 
@@ -218,5 +248,33 @@ if prompt := st.chat_input("🎈 여기에 사례를 입력하세요..."):
             st.markdown(response_text)
             st.session_state.messages.append({"role": "assistant", "content": response_text})
 
-# 하단 푸터
-st.markdown('<div class="footer">디지털 기반 학생 맞춤교육, AI정보교육 중심학교<br>효행초등학교 - 김종윤</div>', unsafe_allow_html=True)
+# 하단 푸터 (더 강력한 스타일링)
+st.markdown("""
+<div class="footer">
+    디지털 기반 학생 맞춤교육, AI정보교육 중심학교<br>
+    효행초등학교 - 김종윤
+</div>
+""", unsafe_allow_html=True)
+
+# 추가적인 푸터 (만약 위의 것이 안 보이면)
+st.markdown("""
+<style>
+    .custom-footer {
+        position: fixed;
+        right: 10px;
+        bottom: 10px;
+        background: white;
+        color: #4a5568;
+        font-size: 12px;
+        text-align: right;
+        padding: 8px 12px;
+        border-radius: 10px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        z-index: 999999;
+        font-family: 'Jua', sans-serif;
+    }
+</style>
+<div class="custom-footer">
+    디지털 기반 학생 맞춤교육, AI정보교육 중심학교<br>효행초등학교 - 김종윤
+</div>
+""", unsafe_allow_html=True)
