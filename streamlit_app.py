@@ -61,22 +61,37 @@ st.markdown("""
         box-shadow: 0 2px 15px rgba(0, 0, 0, 0.08);
         border: 1px solid #f0f0f0;
         font-family: 'Jua', sans-serif;
+        color: #2d3748 !important;
     }
     
     /* 사용자 메시지 */
     [data-testid="stChatMessage"][data-testid*="user"] {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        color: white;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+        color: white !important;
         margin-left: 60px;
         margin-right: 0;
     }
     
     /* AI 메시지 */
     [data-testid="stChatMessage"][data-testid*="assistant"] {
-        background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-        color: white;
+        background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%) !important;
+        color: white !important;
         margin-right: 60px;
         margin-left: 0;
+    }
+    
+    /* 채팅 메시지 내부 텍스트 강제 색상 설정 */
+    [data-testid="stChatMessage"] p,
+    [data-testid="stChatMessage"] div,
+    [data-testid="stChatMessage"] span {
+        color: inherit !important;
+    }
+    
+    /* 기본 메시지 (흰 배경)의 텍스트는 검은색 */
+    [data-testid="stChatMessage"]:not([data-testid*="user"]):not([data-testid*="assistant"]) p,
+    [data-testid="stChatMessage"]:not([data-testid*="user"]):not([data-testid*="assistant"]) div,
+    [data-testid="stChatMessage"]:not([data-testid*="user"]):not([data-testid*="assistant"]) span {
+        color: #2d3748 !important;
     }
     
     /* 입력창 스타일 */
