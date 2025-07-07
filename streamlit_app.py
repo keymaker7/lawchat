@@ -7,87 +7,94 @@ st.set_page_config(
     page_icon="🌈",
 )
 
-# 귀여운 스타일 CSS
+# 깔끔한 UI 스타일 CSS
 st.markdown("""
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Jua&display=swap');
     
-    /* 전체 배경 - 흰색 바탕 */
+    /* 전체 배경 - 깔끔한 흰색 */
     [data-testid="stAppViewContainer"] > .main {
-        background: linear-gradient(135deg, #ffffff 0%, #f8f9ff 100%);
-        background-attachment: fixed;
+        background: #ffffff;
+        padding: 0;
     }
     
-    /* 메인 컨테이너 */
-    .main > div {
-        background: rgba(255, 255, 255, 0.9);
-        border-radius: 20px;
-        margin: 20px;
-        padding: 20px;
-        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.05);
-        backdrop-filter: blur(10px);
-        border: 2px solid rgba(102, 126, 234, 0.1);
+    /* 헤더 영역 */
+    .header-container {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        padding: 30px 20px;
+        border-radius: 0 0 30px 30px;
+        margin: -1rem -1rem 2rem -1rem;
+        text-align: center;
+        box-shadow: 0 4px 20px rgba(102, 126, 234, 0.2);
     }
     
     /* 타이틀 스타일 */
-    .main h1 {
+    .main-title {
         font-family: 'Jua', sans-serif;
-        color: #2d3748;
-        text-align: center;
+        color: white;
         font-size: 2.5rem;
-        margin-bottom: 10px;
-        text-shadow: 2px 2px 4px rgba(102, 126, 234, 0.2);
+        margin: 0;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
     }
     
     /* 캡션 스타일 */
-    .main p {
+    .main-caption {
         font-family: 'Jua', sans-serif;
-        color: #4a5568;
-        text-align: center;
-        font-size: 1.1rem;
-        margin-bottom: 30px;
+        color: rgba(255, 255, 255, 0.9);
+        font-size: 1.2rem;
+        margin: 10px 0 0 0;
+    }
+    
+    /* 채팅 컨테이너 */
+    .chat-container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 0 20px;
     }
     
     /* 채팅 메시지 스타일 */
     [data-testid="stChatMessage"] {
-        background: rgba(255, 255, 255, 0.9);
-        border-radius: 15px;
-        padding: 15px;
-        margin: 10px 0;
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
-        border: 1px solid rgba(102, 126, 234, 0.1);
+        background: white;
+        border-radius: 20px;
+        padding: 20px;
+        margin: 15px 0;
+        box-shadow: 0 2px 15px rgba(0, 0, 0, 0.08);
+        border: 1px solid #f0f0f0;
+        font-family: 'Jua', sans-serif;
     }
     
     /* 사용자 메시지 */
     [data-testid="stChatMessage"][data-testid*="user"] {
         background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
         color: white;
-        margin-left: 20px;
-        border: 1px solid rgba(102, 126, 234, 0.3);
+        margin-left: 60px;
+        margin-right: 0;
     }
     
     /* AI 메시지 */
     [data-testid="stChatMessage"][data-testid*="assistant"] {
         background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
         color: white;
-        margin-right: 20px;
-        border: 1px solid rgba(245, 87, 108, 0.3);
+        margin-right: 60px;
+        margin-left: 0;
     }
     
     /* 입력창 스타일 */
     [data-testid="stChatInput"] {
-        background: rgba(255, 255, 255, 0.9);
-        border-radius: 25px;
+        background: white;
+        border-radius: 30px;
         border: 2px solid #667eea;
-        padding: 10px 20px;
+        padding: 15px 25px;
         font-family: 'Jua', sans-serif;
         font-size: 1.1rem;
+        box-shadow: 0 4px 20px rgba(102, 126, 234, 0.1);
     }
     
     /* 입력창 포커스 */
     [data-testid="stChatInput"]:focus {
         border-color: #764ba2;
-        box-shadow: 0 0 20px rgba(102, 126, 234, 0.3);
+        box-shadow: 0 4px 25px rgba(102, 126, 234, 0.2);
+        outline: none;
     }
     
     /* 스피너 스타일 */
@@ -95,74 +102,38 @@ st.markdown("""
         color: #667eea;
     }
     
-    /* 귀여운 데코레이션 */
-    .decoration {
+    /* 법 관련 배경 아이콘들 */
+    .law-decoration {
         position: fixed;
         pointer-events: none;
-        z-index: -1;
-    }
-    
-    /* 법 관련 귀여운 아이콘들 */
-    .law-icon {
-        position: fixed;
-        font-size: 30px;
-        animation: float 3s ease-in-out infinite;
-        opacity: 0.6;
+        z-index: 0;
+        font-size: 25px;
+        opacity: 0.1;
         color: #667eea;
+        animation: float 4s ease-in-out infinite;
     }
     
     @keyframes float {
-        0%, 100% { transform: translateY(0px); }
-        50% { transform: translateY(-10px); }
+        0%, 100% { transform: translateY(0px) rotate(0deg); }
+        50% { transform: translateY(-10px) rotate(5deg); }
     }
     
-    .law-icon-small {
+    /* 하단 좌측 푸터 */
+    .footer-left {
         position: fixed;
-        font-size: 20px;
-        animation: bounce 2s ease-in-out infinite;
-        opacity: 0.4;
-        color: #764ba2;
-    }
-    
-    @keyframes bounce {
-        0%, 100% { transform: translateY(0px); }
-        50% { transform: translateY(-5px); }
-    }
-    
-    /* 하단 푸터 */
-    .footer {
-        position: fixed !important;
-        right: 15px !important;
-        bottom: 15px !important;
-        background: rgba(255, 255, 255, 0.95) !important;
-        color: #4a5568 !important;
-        font-size: 0.85em !important;
-        text-align: right !important;
-        padding: 10px 15px !important;
-        border-radius: 15px !important;
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1) !important;
-        font-family: 'Jua', sans-serif !important;
-        border: 1px solid rgba(102, 126, 234, 0.3) !important;
-        z-index: 9999 !important;
-        max-width: 300px !important;
-        line-height: 1.3 !important;
-    }
-    
-    /* 버튼 스타일 */
-    .stButton > button {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        color: white;
-        border: none;
-        border-radius: 20px;
-        padding: 10px 20px;
+        left: 20px;
+        bottom: 20px;
+        background: white;
+        color: #4a5568;
+        font-size: 0.9em;
+        padding: 12px 18px;
+        border-radius: 15px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
         font-family: 'Jua', sans-serif;
-        font-size: 1.1rem;
-        transition: all 0.3s ease;
-    }
-    
-    .stButton > button:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+        border: 2px solid #667eea;
+        z-index: 1000;
+        line-height: 1.4;
+        max-width: 280px;
     }
     
     /* 사이드바 숨기기 */
@@ -174,28 +145,24 @@ st.markdown("""
     [data-testid="stToolbar"] {
         display: none;
     }
+    
+    /* Streamlit 기본 여백 제거 */
+    .main .block-container {
+        padding-top: 0;
+        padding-bottom: 100px;
+    }
 </style>
 """, unsafe_allow_html=True)
 
-# 귀여운 법 관련 배경 데코레이션
+# 배경 장식 아이콘들 (적당히 배치)
 st.markdown("""
-<div class="decoration">
-    <!-- 법 관련 큰 아이콘들 -->
-    <div class="law-icon" style="top: 10%; left: 10%;">⚖️</div>
-    <div class="law-icon" style="top: 20%; left: 85%; animation-delay: 1s;">🏛️</div>
-    <div class="law-icon" style="top: 70%; left: 15%; animation-delay: 2s;">📚</div>
-    <div class="law-icon" style="top: 80%; left: 90%; animation-delay: 3s;">⚖️</div>
-    <div class="law-icon" style="top: 50%; left: 5%; animation-delay: 4s;">🏛️</div>
-    
-    <!-- 법 관련 작은 아이콘들 -->
-    <div class="law-icon-small" style="top: 30%; left: 25%; animation-delay: 0.5s;">📖</div>
-    <div class="law-icon-small" style="top: 45%; left: 75%; animation-delay: 1.5s;">🎓</div>
-    <div class="law-icon-small" style="top: 60%; left: 30%; animation-delay: 2.5s;">📜</div>
-    <div class="law-icon-small" style="top: 25%; left: 60%; animation-delay: 3.5s;">🏛️</div>
-    <div class="law-icon-small" style="top: 85%; left: 40%; animation-delay: 4.5s;">⚖️</div>
-    <div class="law-icon-small" style="top: 15%; left: 40%; animation-delay: 5s;">📚</div>
-    <div class="law-icon-small" style="top: 65%; left: 70%; animation-delay: 5.5s;">🎯</div>
-    <div class="law-icon-small" style="top: 35%; left: 95%; animation-delay: 6s;">📖</div>
+<div style="position: relative;">
+    <div class="law-decoration" style="top: 150px; left: 50px; animation-delay: 0s;">⚖️</div>
+    <div class="law-decoration" style="top: 250px; right: 80px; animation-delay: 1s;">🏛️</div>
+    <div class="law-decoration" style="top: 400px; left: 100px; animation-delay: 2s;">📚</div>
+    <div class="law-decoration" style="top: 500px; right: 150px; animation-delay: 3s;">📖</div>
+    <div class="law-decoration" style="top: 300px; left: 200px; animation-delay: 4s;">🎓</div>
+    <div class="law-decoration" style="top: 600px; right: 200px; animation-delay: 5s;">📜</div>
 </div>
 """, unsafe_allow_html=True)
 
@@ -219,9 +186,13 @@ MASTER_PROMPT = """
 # 모델 초기화
 model = genai.GenerativeModel('gemini-1.5-flash')
 
-# 제목과 설명
-st.title("🌈 인권 지킴이 AI 챗봇 🤖")
-st.caption("🎯 궁금한 인권 침해 사례를 입력하면 AI가 친절하게 분석해 줄게요! 💝")
+# 헤더 영역
+st.markdown("""
+<div class="header-container">
+    <h1 class="main-title">🌈 인권 지킴이 AI 챗봇 🤖</h1>
+    <p class="main-caption">🎯 궁금한 인권 침해 사례를 입력하면 AI가 친절하게 분석해 줄게요! 💝</p>
+</div>
+""", unsafe_allow_html=True)
 
 # 세션 상태 초기화
 if "messages" not in st.session_state:
@@ -230,9 +201,11 @@ if "messages" not in st.session_state:
     ]
 
 # 채팅 메시지 표시
+st.markdown('<div class="chat-container">', unsafe_allow_html=True)
 for message in st.session_state.messages:
     with st.chat_message(message["role"]):
         st.markdown(message["content"])
+st.markdown('</div>', unsafe_allow_html=True)
 
 # 사용자 입력 처리
 if prompt := st.chat_input("🎈 여기에 사례를 입력하세요..."):
@@ -248,33 +221,11 @@ if prompt := st.chat_input("🎈 여기에 사례를 입력하세요..."):
             st.markdown(response_text)
             st.session_state.messages.append({"role": "assistant", "content": response_text})
 
-# 하단 푸터 (더 강력한 스타일링)
+# 하단 좌측 푸터
 st.markdown("""
-<div class="footer">
-    디지털 기반 학생 맞춤교육, AI정보교육 중심학교<br>
-    효행초등학교 - 김종윤
-</div>
-""", unsafe_allow_html=True)
-
-# 추가적인 푸터 (만약 위의 것이 안 보이면)
-st.markdown("""
-<style>
-    .custom-footer {
-        position: fixed;
-        right: 10px;
-        bottom: 10px;
-        background: white;
-        color: #4a5568;
-        font-size: 12px;
-        text-align: right;
-        padding: 8px 12px;
-        border-radius: 10px;
-        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        z-index: 999999;
-        font-family: 'Jua', sans-serif;
-    }
-</style>
-<div class="custom-footer">
-    디지털 기반 학생 맞춤교육, AI정보교육 중심학교<br>효행초등학교 - 김종윤
+<div class="footer-left">
+    💻 디지털 기반 학생 맞춤교육<br>
+    🤖 AI정보교육 중심학교<br>
+    🏫 효행초등학교 - 김종윤
 </div>
 """, unsafe_allow_html=True)
